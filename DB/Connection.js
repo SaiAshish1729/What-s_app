@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Connection = async () => {
-    const URL = "mongodb://127.0.0.1:27017/Bussiness_DB"
+    const URL = "mongodb://127.0.0.1:27017/chat_DB"
     try {
         await mongoose.connect(URL)
         console.log("Database Connected Successfully!");

@@ -2,6 +2,7 @@ require('dotenv').config({ path: `${process.cwd()}/.env` });
 const express = require("express");
 const cors = require("cors");
 const Connection = require('./DB/Connection');
+const userRoute = require("./Routes/userRoutes.js");
 const app = express();
 
 
@@ -16,10 +17,13 @@ app.get("/", (req, res) => {
     res.send("Hello world!");
 });
 
+app.use("/", userRoute);
+
 // app.use('*', (req, res) => {
 //     res.status(404).json({ message: 'Route not found' });
 // });
+// https://www.youtube.com/watch?v=KGH6z0Z0GXA
 
 app.listen(port, () => {
     console.log(`Listning on port http://localhost:${port}`);
-})
+});
