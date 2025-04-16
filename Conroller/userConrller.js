@@ -94,7 +94,7 @@ const getOtherUsers = async (req, res) => {
     try {
         const loggedInUserId = req.id;
         const otherUsers = await Users.find({ _id: { $ne: loggedInUserId } }).select("-password");
-        return res.status(200).json(otherUsers);
+        return res.status(200).send({ success: true, message: "Other users fetched successfully.", data: otherUsers });
     } catch (error) {
         console.log(error);
     }

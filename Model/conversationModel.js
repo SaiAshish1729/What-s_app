@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const conversationSchema = new mongoose.Schema({
     participants: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "Users"
     }],
     messages: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Message"
+        ref: "Messages"
     }]
 }, { timestamps: true });
 
