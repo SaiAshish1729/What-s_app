@@ -79,6 +79,17 @@ const userLogin = async (req, res) => {
     }
 }
 
+const getProfile = async (req, res) => {
+    try {
+        const loggedInUser = req.id;
+        const userDetails = await Users.findOne({ _id: loggedInUser });
+        return res.status(200).json({ success: true, message: "User profile fetched successfully.", data: userDetails });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Server error while fetching user profile." })
+    }
+}
+
 const logout = (req, res) => {
     try {
         return res.status(200).cookie("token", "", { maxAge: 0 }).json({
@@ -104,5 +115,5 @@ module.exports = {
     userLogin,
     logout,
     getOtherUsers,
-
+    getProfile,
 }
