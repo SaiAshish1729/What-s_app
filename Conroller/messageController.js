@@ -5,6 +5,9 @@ const sendMessage = async (req, res) => {
     try {
         const senderId = req.id;
         const receiverId = req.params.id;
+        if (senderId === receiverId) {
+            return res.status(400).send({ success: false, message: "You can't send message to youself." })
+        }
         const { message } = req.body;
 
         let gotConversation = await Conversations.findOne({
@@ -47,4 +50,4 @@ const getMessage = async (req, res) => {
 module.exports = {
     sendMessage,
     getMessage,
-}
+}   

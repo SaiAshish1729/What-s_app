@@ -28,7 +28,7 @@ const registerUser = async (req, res) => {
             fullName,
             username,
             password: hashedPassword,
-            profilePhoto: gender === "male" ? maleProfilePhoto : femaleProfilePhoto,
+            avatar: gender === "male" ? maleProfilePhoto : femaleProfilePhoto,
             gender
         });
         return res.status(201).json({
@@ -51,7 +51,7 @@ const userLogin = async (req, res) => {
         const user = await Users.findOne({ username });
         if (!user) {
             return res.status(400).json({
-                message: "Incorrect username or password",
+                message: "Incorrect username",
                 success: false
             })
         };
@@ -69,10 +69,9 @@ const userLogin = async (req, res) => {
         const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
 
         return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' }).json({
-            _id: user._id,
-            username: user.username,
-            fullName: user.fullName,
-            profilePhoto: user.profilePhoto
+            success: true,
+            message: "Login successfully.",
+            data: user
         });
     } catch (error) {
         console.log(error);
