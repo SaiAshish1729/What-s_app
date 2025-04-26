@@ -51,7 +51,7 @@ const userLogin = async (req, res) => {
         const user = await Users.findOne({ username });
         if (!user) {
             return res.status(400).json({
-                message: "Incorrect username or password",
+                message: "User not found with this username",
                 success: false
             })
         };
