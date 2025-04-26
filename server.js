@@ -21,7 +21,18 @@ app.use(express.urlencoded({ extended: true }));
 Connection();
 
 app.get("/", (req, res) => {
-    res.send("Hello world!");
+    // res.send("Hello world!");
+    // const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    // res.send(`Your IP address is ${ip}`);
+    let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+    // Clean IPv6 localhost
+    if (ip === '::1') ip = '127.0.0.1';
+
+    // Remove IPv6 prefix if present
+    ip = ip.replace('::ffff:', '');
+
+    res.send(`Your IP address is ${ip}`);
 });
 
 app.use("/", userRoute);
