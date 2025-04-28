@@ -9,4 +9,4 @@ router.get("/logout", logout);
 router.get("/other-users", isAuthenticated, getOtherUsers);
 router.get("/user-profile", isAuthenticated, getProfile);
 
-module.exports = router
+module.exports = router 
