@@ -5,7 +5,8 @@ const Connection = require('./DB/Connection');
 const userRoute = require("./Routes/userRoutes.js")
 const messageRoute = require("./Routes/messageRoute.js");
 const cookieParser = require('cookie-parser');
-const app = express();
+const { app, server } = require("./Socket/socket.js");
+// const app = express();
 
 const port = process.env.APP_PORT || 5000;
 app.use(express.json());
@@ -43,6 +44,6 @@ app.use("/", messageRoute);
 // https://www.youtube.com/watch?v=KGH6z0Z0GXA
 // https://www.youtube.com/watch?v=AdLyWQej0Zg
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Listning on port http://localhost:${port}`);
 });

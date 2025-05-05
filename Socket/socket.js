@@ -1,3 +1,4 @@
+require('dotenv').config({ path: `${process.cwd()}/.env` });
 const { Server } = require("socket.io")
 
 const http = require("http");

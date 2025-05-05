@@ -28,7 +28,7 @@ const sendMessage = async (req, res) => {
             gotConversation.messages.push(newMessage._id);
         };
         await gotConversation.save();
-        return res.status(200).send({ status: true, message: "Message send successfully." })
+        return res.status(200).send({ status: true, message: "Message send successfully.", data: newMessage })
     } catch (error) {
         console.log(error);
         return res.status(500).send({ success: false, Message: "Server error while sending message", error })
