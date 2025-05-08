@@ -1,5 +1,6 @@
 const Conversations = require("../Model/conversationModel");
 const Messages = require("../Model/messageModel");
+const { getSocketId, io } = require("../Socket/socket");
 
 const sendMessage = async (req, res) => {
     try {
@@ -28,6 +29,11 @@ const sendMessage = async (req, res) => {
             gotConversation.messages.push(newMessage._id);
         };
         await gotConversation.save();
+
+        // socket.io
+        const SocketId = getSocketId(receiverId);
+        io.to(SocketId).emit("newMessage", newMessage);
+
         return res.status(200).send({ status: true, message: "Message send successfully.", data: newMessage })
     } catch (error) {
         console.log(error);

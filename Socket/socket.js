@@ -25,9 +25,18 @@ io.on("connection", (socket) => {
     userSocketMap[userId] = socket.id;
     // console.log(Object.keys(userSocketMap))
 
-    io.emit("onlineUsers", Object.keys(userSocketMap))
+    io.emit("onlineUsers", Object.keys(userSocketMap));
+
+    socket.on("disconnect", () => {
+        delete userSocketMap[userId]
+        io.emit("onlineUsers", Object.keys(userSocketMap));
+    })
 });
 
+const getSocketId = (userId) => {
+    return userSocketMap[userId]
+}
+
 module.exports = {
-    app, io, server
+    app, io, server, getSocketId
 }
